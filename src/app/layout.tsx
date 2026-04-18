@@ -4,7 +4,7 @@ import { ModalProvider } from "@/context/ModalContext";
 import { DiagnosticModal } from "@/components/DiagnosticModal";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://omediaparis.vercel.app"),
+  metadataBase: new URL("https://omedia-paris-clone.vercel.app"),
   title: "Omedia Paris | Agence conseil en Communication Luxe",
   description:
     "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
     title: "Omedia Paris | Agence conseil en Communication Luxe",
     description:
       "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
-    url: "https://omediaparis.vercel.app",
+    url: "https://omedia-paris-clone.vercel.app",
     siteName: "Omedia Paris",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Omedia Paris — Agence conseil en Communication Luxe",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Omedia Paris | Agence conseil en Communication Luxe",
     description:
       "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
 };
 
