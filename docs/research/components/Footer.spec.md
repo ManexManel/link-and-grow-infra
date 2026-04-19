@@ -2,118 +2,109 @@
 
 ## Overview
 - **Target file:** `src/components/Footer.tsx`
-- **Interaction model:** static + newsletter form
+- **Screenshot:** `docs/design-references/footer.png`
+- **Interaction model:** static
 
 ## DOM Structure
-Single section with:
-- Left area: NEWSLETTER heading + email input + submit button
-- Center-left: Social icons (Instagram, LinkedIn)
-- Center-right: Navigation links list
-- Right: Address block
+```
+<footer> white bg, padding 60px 0 24px
+  <div> container max-width 1200px
+    <div> logo row
+      <img src="linkandgrow-logo.svg"> (larger logo)
+    <div> three-column grid
+      <div> column 1: "Sobre"
+        <h4> "Sobre"
+        <p> about text
+        <a> "VER TODAS AS FILIAIS" blue button
+        <div> social icons row: Facebook, Instagram, LinkedIn, Pinterest, X (Twitter)
+      <div> column 2: "Sede Porto"
+        <h4> "Sede Porto"
+        <p> phone: "+351 937 366 484" with phone icon
+        <p> note: "(chamada para a rede móvel nacional)"
+        <p> email: "joao.oliveira@linkandgrow.pt" with mail icon
+        <p> address: "Rua da Boavista, nº291, 3º Andar 4050-102 Porto" with pin icon
+      <div> column 3: partner badges
+        Norte2020, Portugal2020, EU logos
+        Clutch badges (3×)
+        Google Partner badge
+        HubSpot Partner badge
+    <div> copyright bar
+      <p> "© 2026  Built with passion. All rights reserved Link&Grow. Política de Privacidade"
+```
 
 ## Computed Styles
 
-### Footer container
-- background: #ffffff
-- border-top: 1px solid #e5e5e5
-- padding: 60px 80px
-- display: flex
-- align-items: flex-start
-- gap: 40px (or justify-content: space-between)
+### Footer
+- backgroundColor: rgb(255, 255, 255)
+- paddingTop: 60px
+- paddingBottom: 24px
+- borderTop: 1px solid rgb(242, 242, 242)
 
-### NEWSLETTER heading
-- font-family: "Din Pro", sans-serif
-- font-size: ~48px (large)
-- font-weight: 700
-- letter-spacing: 3px
-- color: #000000
-- text-transform: uppercase
-- margin-bottom: 24px
+### Three-column grid
+- display: grid
+- gridTemplateColumns: 1fr 1fr 1fr (or auto sizing)
+- gap: 48px
+- marginTop: 40px
 
-### Email input
-- font-family: "Din Pro", sans-serif
-- font-size: 14px
-- border: 1px solid #000
-- border-radius: 30px (pill shape)
+### Column H4
+- fontFamily: Nunito
+- fontSize: 18px
+- fontWeight: 700
+- color: rgb(48, 71, 99) = #304763
+- marginBottom: 16px
+
+### Body text
+- fontFamily: Rubik
+- fontSize: 16px
+- color: rgb(109, 123, 143) = #6D7B8F
+- lineHeight: 1.7
+
+### "VER TODAS AS FILIAIS" button
+- backgroundColor: rgb(31, 123, 255) = #1F7BFF
+- color: rgb(255, 255, 255)
+- fontSize: 12px
+- fontWeight: 700
+- letterSpacing: 1.5px
+- textTransform: uppercase
+- borderRadius: 5px
 - padding: 12px 24px
-- width: ~260px
-- background: transparent
-- color: #000
-- placeholder: "Entrez votre email"
+- display: inline-block
+- textDecoration: none
+- marginBottom: 24px
 
-### S'INSCRIRE button
-- font-family: "Din Pro", sans-serif
-- font-size: 15px
-- font-weight: 500
-- background: rgb(245, 191, 69) = #f5bf45
-- color: #ffffff
-- border-radius: 6px
-- padding: 17px 40px
-- border: none
-- cursor: pointer
-- margin-left: 12px
-
-### Social icons area
+### Social icons
 - display: flex
 - gap: 12px
-- margin-top: 24px (below newsletter form)
+- Social circles: width 36px, height 36px, borderRadius 50%
+- Facebook: bg #1F7BFF
+- Instagram: bg gradient (#F47514 to purple)
+- LinkedIn: bg #0077B5
+- Pinterest: bg #E60023
+- X/Twitter: bg #000000
 
-### Social icon circles
-- width: 36px
-- height: 36px
-- border-radius: 50%
-- border: 1px solid #000 (or bg: #000 for filled)
-- display: flex
-- align-items: center
-- justify-content: center
-- color: #000 (or white on black bg)
+### Copyright bar
+- borderTop: 1px solid rgb(242, 242, 242)
+- paddingTop: 24px
+- marginTop: 40px
+- fontSize: 14px
+- color: rgb(109, 123, 143)
+- textAlign: center
 
-### Nav links list
-- list-style: none
-- padding: 0
-- display: flex
-- flex-direction: column
-- gap: 8px
+## Text Content (verbatim)
+- H4 col1: "Sobre"
+- P col1: "Alavancamos os negócios digitais dos nossos clientes com base em metodologias de Inbound Marketing."
+- Button: "VER TODAS AS FILIAIS"
+- H4 col2: "Sede Porto"
+- Phone: "+351 937 366 484"
+- Note: "(chamada para a rede móvel nacional)"
+- Email: "joao.oliveira@linkandgrow.pt"
+- Address: "Rua da Boavista, nº291, 3º Andar 4050-102 Porto"
+- Copyright: "© 2026  Built with passion. All rights reserved Link&Grow. Política de Privacidade"
 
-### Nav link
-- font-family: "Din Pro", sans-serif
-- font-size: 13px
-- font-weight: 400
-- letter-spacing: 1px
-- color: #000
-- text-transform: uppercase
-- text-decoration: none
+## Assets
+- Logo: `public/images/linkandgrow-logo.svg`
+- Social icons: use Lucide React icons (Facebook, Instagram, Linkedin, etc.)
 
-### Address block
-- font-family: "Din Pro", sans-serif
-- font-size: 13px
-- font-weight: 400
-- color: #000
-- line-height: 1.8
-
-## Text Content
-
-### Newsletter
-- Heading: "NEWSLETTER"
-- Input placeholder: "Entrez votre email"
-- Button: "S'INSCRIRE"
-
-### Nav links
-- L'AGENCE → /fr/agence/
-- TALENTS → /fr/talents/
-- MENTIONS LÉGALES → /fr/mentions-legales/
-- LE SAVOIR-FAIRE → /fr/le-savoir-faire/
-- CONTACT → /fr/contact/
-
-### Address
-137 BOULEVARD HAUSSMANN 75008 PARIS
-+33 | 44 34 10 40
-contact@omedia.fr
-
-### Social
-- Instagram → https://www.instagram.com/omediaparis/
-- LinkedIn → https://www.linkedin.com/company/omedia/
-
-## Responsive
-- Mobile: stacks vertically
-- Newsletter form: input + button stack
+## Responsive Behavior
+- **Desktop:** 3-column grid
+- **Mobile:** 1-column stack

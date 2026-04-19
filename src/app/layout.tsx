@@ -1,41 +1,115 @@
 import type { Metadata } from "next";
+import { Nunito, Rubik, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/context/ModalContext";
-import { DiagnosticModal } from "@/components/DiagnosticModal";
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-nunito",
+  display: "swap",
+});
+
+const rubik = Rubik({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-rubik",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const BASE_URL = "https://linkandgrow-b2b.vercel.app";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://omedia-paris-clone.vercel.app"),
-  title: "Omedia Paris | Agence conseil en Communication Luxe",
+  metadataBase: new URL(BASE_URL),
+  title: "Link & Grow | Agência de Inbound Marketing & Link Building B2B",
   description:
-    "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
+    "Construímos a autoridade digital da sua empresa B2B. Aumente o seu tráfego qualificado e domine o seu mercado com estratégias premium de Inbound Marketing e Link Building.",
+  keywords: [
+    "inbound marketing",
+    "link building",
+    "agência marketing digital",
+    "SEO B2B",
+    "marketing digital Portugal",
+    "geração de leads",
+    "autoridade de domínio",
+    "agência Porto",
+    "agência Lisboa",
+  ],
+  authors: [{ name: "Link&Grow", url: "https://linkandgrow.pt" }],
+  creator: "Link&Grow",
+  publisher: "Link&Grow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
-    icon: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
     shortcut: "/favicon.png",
   },
   openGraph: {
-    title: "Omedia Paris | Agence conseil en Communication Luxe",
+    title: "Link & Grow | Agência de Inbound Marketing & Link Building B2B",
     description:
-      "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
-    url: "https://omedia-paris-clone.vercel.app",
-    siteName: "Omedia Paris",
+      "Construímos a autoridade digital da sua empresa B2B. Aumente o seu tráfego qualificado e domine o seu mercado com estratégias premium.",
+    url: BASE_URL,
+    siteName: "Link&Grow",
+    locale: "pt_PT",
+    type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "/seo/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Omedia Paris — Agence conseil en Communication Luxe",
+        alt: "Link&Grow — Agência de Inbound Marketing & Link Building B2B",
       },
     ],
-    locale: "fr_FR",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Omedia Paris | Agence conseil en Communication Luxe",
+    title: "Link & Grow | Agência de Inbound Marketing & Link Building B2B",
     description:
-      "Nous conjuguons créativité et rentabilité pour les Maisons prestigieuses.",
-    images: ["/og-image.png"],
+      "Construímos a autoridade digital da sua empresa B2B. Estratégias premium de Inbound Marketing e Link Building.",
+    images: ["/seo/og-image.png"],
+    creator: "@linkandgrow",
+    site: "@linkandgrow",
+  },
+  alternates: {
+    canonical: BASE_URL,
+    languages: {
+      "pt-PT": BASE_URL,
+      "fr-FR": `${BASE_URL}/fr`,
+      "en-GB": `${BASE_URL}/en`,
+    },
+  },
+  verification: {
+    google: "linkandgrow-google-verification",
   },
 };
 
@@ -45,12 +119,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full">
-      <body className="min-h-full flex flex-col antialiased">
-        <ModalProvider>
-          {children}
-          <DiagnosticModal />
-        </ModalProvider>
+    <html lang="pt" className={`${nunito.variable} ${rubik.variable} ${instrumentSerif.variable} ${inter.variable}`}>
+      <body className="min-h-full antialiased">
+        <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );

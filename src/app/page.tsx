@@ -1,19 +1,32 @@
-import { Header } from "@/components/Header";
-import { HeroSection } from "@/components/HeroSection";
-import { StickyServicesNav } from "@/components/StickyServicesNav";
-import { ContentSections } from "@/components/ContentSections";
-import { SliderSection } from "@/components/SliderSection";
-import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
+import { HeroConversion } from "@/components/lg/HeroConversion";
+import { TrustBand } from "@/components/lg/TrustBand";
+import { MethodSection } from "@/components/lg/MethodSection";
+import { MetricsSection } from "@/components/lg/MetricsSection";
+import { FaqSection } from "@/components/lg/FaqSection";
+import { DarkCtaSection } from "@/components/lg/DarkCtaSection";
+import { StickyFooter } from "@/components/ui/sticky-footer";
+import { AuditModal } from "@/components/AuditModal";
+import { GlassBackground } from "@/components/lg/GlassBackground";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
-      <HeroSection />
-      <StickyServicesNav />
-      <ContentSections />
-      <SliderSection />
-      <Footer />
+    <main>
+      <Navbar />
+      <HeroConversion />
+
+      {/* ── Glassmorphism wrapper — pure CSS, zero network cost ── */}
+      <div style={{ position: "relative", background: "var(--conv-ivory)" }}>
+        <GlassBackground />
+        <TrustBand />
+        <MethodSection />
+        <MetricsSection />
+        <FaqSection />
+        <DarkCtaSection />
+        <StickyFooter />
+      </div>
+
+      <AuditModal />
     </main>
   );
 }

@@ -1,348 +1,272 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
-/* ===================== GLOBAL SCROLL ===================== */
+/* ===================== LINK&GROW DESIGN TOKENS ===================== */
+:root {
+  /* Brand colors */
+  --color-primary: #304763;        /* rgb(48,71,99)   — dark navy, headings */
+  --color-accent-blue: #1F7BFF;    /* rgb(31,123,255) — buttons, active */
+  --color-accent-orange: #F47514;  /* rgb(244,117,20) — franchising CTA */
+  --color-heading-dark: #252A3F;   /* rgb(37,42,63)   — service card titles */
+  --color-text-body: #6D7B8F;      /* rgb(109,123,143) — body copy */
+  --color-nav-link: #304B63;       /* nav link text */
+  --color-nav-purple: #3B3663;     /* rgb(59,54,99) */
+  --color-bg-white: #ffffff;
+  --color-bg-light: #F9F9F9;
+  --color-bg-gray: #F2F2F2;        /* rgb(242,242,242) — borders, dividers */
+  --color-dark: #222222;
+
+  /* Shadcn token mapping */
+  --background: #ffffff;
+  --foreground: #6D7B8F;
+  --primary: #1F7BFF;
+  --primary-foreground: #ffffff;
+  --muted: #F9F9F9;
+  --muted-foreground: #6D7B8F;
+  --border: #F2F2F2;
+  --radius: 5px;
+
+  /* Font families */
+  --font-heading: var(--font-nunito), 'Nunito', sans-serif;
+  --font-body: var(--font-rubik), 'Rubik', sans-serif;
+
+  /* Conversion landing tokens */
+  --conv-ivory: #FAFAF7;
+  --conv-cobalt: #1956C9;
+  --conv-cobalt-dark: #1342A8;
+  --conv-dark: #0E1220;
+  --conv-dark-card: #141928;
+  --conv-text: #111827;
+  --conv-muted: #6B7280;
+  --font-serif: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-sans: var(--font-inter), 'Inter', sans-serif;
+}
+
+/* ===================== BASE STYLES ===================== */
 html {
   scroll-behavior: smooth;
 }
 
-/* ===================== OMEDIA PARIS FONTS ===================== */
-@font-face {
-  font-family: "Din Pro";
-  src: url("/fonts/din-pro-light-300-webfont.woff2") format("woff2"),
-       url("/fonts/din-pro-light-300-webfont.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Din Pro";
-  src: url("/fonts/din-pro-webfont.woff2") format("woff2"),
-       url("/fonts/din-pro-webfont.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Din Pro";
-  src: url("/fonts/din-pro-medium-500-webfont.woff2") format("woff2"),
-       url("/fonts/din-pro-medium-500-webfont.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Din Pro";
-  src: url("/fonts/din-pro-bold-700-webfont.woff2") format("woff2"),
-       url("/fonts/din-pro-bold-700-webfont.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--color-text-body);
+  background-color: var(--color-bg-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-@font-face {
-  font-family: "Avenir";
-  src: url("/fonts/avenir-200-webfont.woff2") format("woff2"),
-       url("/fonts/avenir-200-webfont.woff") format("woff");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Avenir";
-  src: url("/fonts/avenir-300-webfont.woff2") format("woff2"),
-       url("/fonts/avenir-300-webfont.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Avenir";
-  src: url("/fonts/avenir-400-webfont.woff2") format("woff2"),
-       url("/fonts/avenir-400-webfont.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Avenir";
-  src: url("/fonts/avenir-600-webfont.woff2") format("woff2"),
-       url("/fonts/avenir-600-webfont.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Avenir";
-  src: url("/fonts/avenir-900-webfont.woff2") format("woff2"),
-       url("/fonts/avenir-900-webfont.woff") format("woff");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  line-height: 1.3;
 }
 
-/* ===================== DESIGN TOKENS ===================== */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: "Din Pro", sans-serif;
-  --font-nav: "Avenir", sans-serif;
-  --font-heading: "Din Pro", sans-serif;
-  --color-gold: #f5bf45;
-  --color-nav-gray: #efefef;
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
+/* ===================== UTILITY CLASSES ===================== */
+.container-lg {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #ffffff;
-  --secondary: #efefef;
-  --secondary-foreground: #000000;
-  --muted: #f5f5f5;
-  --muted-foreground: #666666;
-  --accent: #f5bf45;
-  --accent-foreground: #ffffff;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #000000;
-  --radius: 0.375rem;
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    box-sizing: border-box;
-  }
-  html,
-  body {
-    background: #000 !important;
-  }
-  body {
-    @apply text-foreground;
-    font-family: "Din Pro", sans-serif;
-    font-weight: 300;
-    color: #000000;
-    margin: 0;
-    padding: 0;
-  }
-  html {
-    font-family: "Din Pro", sans-serif;
-    scroll-behavior: smooth;
-  }
-}
-
-/* ===================== OMEDIA UTILITIES ===================== */
-.font-din { font-family: "Din Pro", sans-serif; }
-.font-avenir { font-family: "Avenir", sans-serif; }
-
-/* Section headings */
-.omedia-heading {
-  font-family: "Din Pro", sans-serif;
-  font-size: 64px;
-  font-weight: 700;
-  letter-spacing: -1.728px;
-  line-height: 1.1;
-  color: #000000;
-}
-
-/* CTA link style (underlined with small bar) */
-.omedia-cta-link {
-  font-family: "Din Pro", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #000000;
-  text-decoration: none;
+.btn-primary {
   display: inline-block;
-  position: relative;
-}
-.omedia-cta-link::after {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 50%;
-  background: #000000;
-  margin-top: 6px;
-}
-
-/* Services label */
-.omedia-services-label {
-  font-family: "Din Pro", sans-serif;
-  font-size: 11px;
+  background-color: var(--color-accent-blue);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #000000;
-  margin-bottom: 12px;
-}
-
-/* Services list items */
-.omedia-services-item {
-  font-family: "Din Pro", sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #000000;
-  line-height: 2;
-}
-
-/* Thin horizontal separator */
-.omedia-separator {
+  border-radius: 5px;
+  padding: 14px 32px;
+  text-decoration: none;
   border: none;
-  border-top: 1px solid #e5e5e5;
-  margin: 0;
-}
-
-/* ===================== LIQUID GLASS BUTTONS ===================== */
-
-/* Liquid glass — transparent avec blur (Hero, nav links) */
-.liquid-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-    0 4px 24px rgba(0, 0, 0, 0.25);
-  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
-  text-decoration: none;
-  color: #fff;
-  overflow: hidden;
+  transition: background-color 0.2s ease;
 }
-.liquid-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-  border-radius: inherit;
-  pointer-events: none;
-}
-.liquid-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.45);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.3);
+.btn-primary:hover {
+  background-color: #0f6ae0;
 }
 
-/* Liquid glass gold — pour boutons d'action (Footer S'INSCRIRE) */
-.liquid-btn-gold {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(245,191,69,0.85) 0%, rgba(201,169,110,0.9) 100%);
-  border: 1px solid rgba(255, 220, 100, 0.5);
-  border-radius: 6px;
-  backdrop-filter: blur(12px) saturate(200%);
-  -webkit-backdrop-filter: blur(12px) saturate(200%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(120, 80, 0, 0.2),
-    0 4px 20px rgba(201, 169, 110, 0.35);
-  color: #fff;
-  transition: all 0.35s ease;
-  overflow: hidden;
-  cursor: pointer;
-}
-.liquid-btn-gold::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 55%);
-  border-radius: inherit;
-  pointer-events: none;
-}
-.liquid-btn-gold:hover {
-  background: linear-gradient(135deg, rgba(255,210,60,0.95) 0%, rgba(220,180,90,0.95) 100%);
-  border-color: rgba(255, 230, 120, 0.7);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -1px 0 rgba(120, 80, 0, 0.15),
-    0 8px 32px rgba(201, 169, 110, 0.5);
-  color: #000;
-}
-
-/* CTA link liquid — pour les omedia-cta-link dans ContentSections */
-.omedia-cta-link {
-  font-family: "Din Pro", sans-serif;
+.btn-orange {
+  display: inline-block;
+  background-color: var(--color-accent-orange);
+  color: #ffffff;
+  font-family: var(--font-body);
   font-size: 13px;
-  font-weight: 400;
-  color: #000000;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 14px 32px;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.btn-orange:hover {
+  background-color: #d9650f;
+}
+
+/* ===================== TYPING CURSOR ANIMATION ===================== */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typed-cursor {
+  animation: blink 0.7s step-end infinite;
+}
+
+/* ===================== CLIENT LOGOS MARQUEE ===================== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ===================== SCROLL FADE-IN ANIMATION ===================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ===================== SECTION PADDING ===================== */
+.section-padding {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* ===================== LIQUID GLASS BUTTON ===================== */
+@keyframes shimmer {
+  0%   { transform: translateX(-150%) skewX(-20deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(350%)  skewX(-20deg); opacity: 0; }
+}
+
+.btn-liquid-glass {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(25,86,201,0.92) 0%, rgba(20,66,168,0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 16px 36px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.18s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 6px 28px rgba(25, 86, 201, 0.45),
+    0 2px 8px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    inset 0 -1px 0 rgba(0,0,0,0.12);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  position: relative;
-  padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 8px rgba(0,0,0,0.06);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  overflow: hidden;
-}
-.omedia-cta-link::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%);
-  pointer-events: none;
-}
-.omedia-cta-link::after {
-  content: "→";
-  font-size: 14px;
-  opacity: 0.4;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.omedia-cta-link:hover {
-  background: rgba(0, 0, 0, 0.06);
-  border-color: rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 16px rgba(0,0,0,0.1);
-  color: #000;
-}
-.omedia-cta-link:hover::after {
-  transform: translateX(4px);
-  opacity: 0.8;
+  text-decoration: none;
 }
 
-/* Swiper slider bg */
-.swiper-slide-bg {
+/* Top highlight edge — glass feel */
+.btn-liquid-glass::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 6s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Shimmer sweep */
+.btn-liquid-glass::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 35%;
+  height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 30%,
+    rgba(255, 255, 255, 0.40) 50%,
+    rgba(255, 255, 255, 0.12) 70%,
+    transparent 100%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.btn-liquid-glass:hover {
+  background: linear-gradient(135deg, rgba(25,86,201,1) 0%, rgba(20,66,168,1) 100%);
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 48px rgba(25, 86, 201, 0.55),
+    0 4px 12px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+.btn-liquid-glass:active {
+  transform: translateY(-1px);
+}
+
+/* Large variant — for dark section CTAs */
+.btn-liquid-glass-lg {
+  padding: 20px 52px;
+  font-size: 16px;
+  border-radius: 14px;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 10px 48px rgba(25, 86, 201, 0.55),
+    0 4px 14px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.12);
+}
+
+/* ===================== SLIDE-UP SECTION HEADINGS ===================== */
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: #1956C9;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* ===================== MOBILE RESPONSIVE FIXES ===================== */
+@media (max-width: 768px) {
+  .hero-visual { display: none !important; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .method-grid { flex-direction: column !important; }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid { grid-template-columns: 1fr !important; }
+  .trust-footer-strip { flex-direction: column !important; gap: 8px !important; align-items: center !important; }
 }

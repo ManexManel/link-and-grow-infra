@@ -1,8 +1,8 @@
 {
-  "name": "ai-website-clone-template",
+  "name": "linkandgrow-infra",
   "version": "0.3.1",
   "private": true,
-  "description": "Clone any website into a clean, modern Next.js codebase using AI coding agents",
+  "description": "Link&Grow — Agência de Inbound Marketing & Link Building B2B",
   "author": "JCodesMore",
   "license": "MIT",
   "repository": {
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",

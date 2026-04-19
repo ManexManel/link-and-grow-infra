@@ -1,62 +1,90 @@
-import { createWriteStream, mkdirSync, existsSync } from 'fs';
-import { pipeline } from 'stream/promises';
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const BASE = 'https://www.omediaparis.com/wp-content/uploads';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const BASE = path.join(__dirname, '../public/images');
+fs.mkdirSync(BASE, { recursive: true });
+fs.mkdirSync(path.join(__dirname, '../public/seo'), { recursive: true });
 
-const assets = [
-  // Logos
-  [`${BASE}/2024/03/logo-omedia-blanc.png`, 'public/images/logo-omedia-blanc.png'],
-  [`${BASE}/2024/03/logo-omedia.png`, 'public/images/logo-omedia.png'],
-  // Hero fallback
-  [`${BASE}/2024/12/home2024-video-fallback.jpg`, 'public/images/home2024-video-fallback.jpg'],
-  // Section images
-  [`${BASE}/2024/03/home202312-vis1.jpg`, 'public/images/home202312-vis1.jpg'],
-  [`${BASE}/2024/03/home-bollinger-bw.jpg`, 'public/images/home-bollinger-bw.jpg'],
-  // Branding triptych
-  [`${BASE}/2024/03/home-triptique-1-1.jpg`, 'public/images/home-triptique-1-1.jpg'],
-  [`${BASE}/2024/03/home-triptique-2.jpg`, 'public/images/home-triptique-2.jpg'],
-  [`${BASE}/2024/03/home-triptique-3.jpg`, 'public/images/home-triptique-3.jpg'],
-  // Brand content triptych
-  [`${BASE}/2024/03/home-triptique-4.jpg`, 'public/images/home-triptique-4.jpg'],
-  [`${BASE}/2024/03/home-triptique-5.jpg`, 'public/images/home-triptique-5.jpg'],
-  [`${BASE}/2024/03/home-triptique-6.jpg`, 'public/images/home-triptique-6.jpg'],
-  // Digital mockup
-  [`${BASE}/2024/03/home-omedia-mockup-2048x1125.png`, 'public/images/home-omedia-mockup.png'],
-  // Social media images
-  [`${BASE}/2024/07/omedia-swissperfection-featured.jpg`, 'public/images/omedia-swissperfection-featured.jpg'],
-  [`${BASE}/2023/01/omedia-bollinger-plateforme-marque-print-v1.jpg`, 'public/images/omedia-bollinger-plateforme-marque-print-v1.jpg'],
-  [`${BASE}/2024/04/omedia-christofle-influence-social-media-04.jpg`, 'public/images/omedia-christofle-influence-social-media-04.jpg'],
-  // Edition image
-  [`${BASE}/2024/03/home-omedia-edition.png`, 'public/images/home-omedia-edition.png'],
-  // Slider images
-  [`${BASE}/2024/03/home-omedia-building.jpg`, 'public/images/home-omedia-building.jpg'],
-  [`${BASE}/2024/03/home-omedia-slider-1.jpg`, 'public/images/home-omedia-slider-1.jpg'],
-  [`${BASE}/2024/03/home-omedia-slider-2.jpg`, 'public/images/home-omedia-slider-2.jpg'],
-  [`${BASE}/2024/03/home-omedia-slider-3.jpg`, 'public/images/home-omedia-slider-3.jpg'],
-  [`${BASE}/2024/03/home-omedia-slider-4.jpg`, 'public/images/home-omedia-slider-4.jpg'],
-  // Hero video
-  ['https://www.omediaparis.com/wp-content/uploads/2024/03/210121_CHAUMET_MASHUP_LOGO.webm', 'public/videos/showreel.webm'],
+const ASSETS = [
+  // Logo + Hero
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/linkandgrow-logo.svg',
+  'https://linkandgrow.pt/wp-content/uploads/2024/08/element_01-1.png',
+  'https://linkandgrow.pt/wp-content/uploads/2024/08/linkandgrow-1-1.jpg',
+  // About / Stats photos
+  'https://linkandgrow.pt/wp-content/uploads/2020/05/home6_icon_13.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/05/home6_icon_14.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/05/home6_icon_10.png',
+  // Service icons
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Inbound.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-E-Commerce.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Web-design.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Automacao.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Leads.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Campanhas-PPC.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Social-media.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/LinkandGrow-Email-Marketing.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/11/LinkandGrow-ContentMarketing.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/11/LinkandGrow-CRM.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Linkandgrow-home-tecnologia.png',
+  // Franchising CEO
+  'https://linkandgrow.pt/wp-content/uploads/2023/12/joao-oliveira-ceo_linkandgrow.png',
+  // Decorative
+  'https://linkandgrow.pt/wp-content/uploads/2020/03/round-points.png',
+  // Client logos
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Lastsole.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/ornimundo.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Feel-Porto.png',
+  'https://linkandgrow.pt/wp-content/uploads/2021/04/Shoppingpt.png',
+  'https://linkandgrow.pt/wp-content/uploads/2024/05/era-1.png',
+  'https://linkandgrow.pt/wp-content/uploads/2024/05/xarao.png',
+  'https://linkandgrow.pt/wp-content/uploads/2024/05/replica.png',
+  'https://linkandgrow.pt/wp-content/uploads/2021/10/decisoes-e-solucoes.png',
+  'https://linkandgrow.pt/wp-content/uploads/2021/10/ambar.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/liderac.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/phyto.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/remax.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Express-glass-1.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/molaflex.png',
+  'https://linkandgrow.pt/wp-content/uploads/2021/09/FCNAUP.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/IHTP.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Go-Gym.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Oito-Um.png',
+  'https://linkandgrow.pt/wp-content/uploads/2020/08/Geometrik.png',
 ];
 
-async function downloadFile(url, dest) {
-  const dir = path.dirname(dest);
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-  if (existsSync(dest)) { console.log(`  SKIP ${dest}`); return; }
-
-  const res = await fetch(url);
-  if (!res.ok) { console.error(`  FAIL ${url} (${res.status})`); return; }
-  await pipeline(res.body, createWriteStream(dest));
-  console.log(`  OK   ${dest}`);
+function download(url, dest) {
+  return new Promise((resolve) => {
+    const file = fs.createWriteStream(dest);
+    const proto = url.startsWith('https') ? https : http;
+    const req = proto.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        file.close();
+        fs.unlink(dest, () => {});
+        return download(res.headers.location, dest).then(resolve);
+      }
+      if (res.statusCode !== 200) {
+        file.close();
+        fs.unlink(dest, () => {});
+        console.log(`  SKIP ${url.split('/').pop()} (${res.statusCode})`);
+        return resolve();
+      }
+      res.pipe(file);
+      file.on('finish', () => { file.close(); console.log(`  OK  ${path.basename(dest)}`); resolve(); });
+    });
+    req.on('error', (e) => { fs.unlink(dest, () => {}); console.log(`  ERR ${e.message}`); resolve(); });
+  });
 }
 
-async function main() {
-  const batchSize = 4;
-  for (let i = 0; i < assets.length; i += batchSize) {
-    const batch = assets.slice(i, i + batchSize);
-    await Promise.all(batch.map(([url, dest]) => downloadFile(url, dest)));
+async function run() {
+  const batches = [];
+  for (let i = 0; i < ASSETS.length; i += 4) batches.push(ASSETS.slice(i, i + 4));
+  for (const batch of batches) {
+    await Promise.all(batch.map(url => download(url, path.join(BASE, url.split('/').pop()))));
   }
-  console.log('Done.');
+  console.log('All done.');
 }
-
-main().catch(console.error);
+run();
